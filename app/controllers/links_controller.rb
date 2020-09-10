@@ -1,10 +1,11 @@
 class LinksController < ApplicationController
+  http_basic_authenticate_with name: "admin", password: "admin"
   before_action :set_link, only: [:show, :edit, :update, :destroy]
 
   # GET /links
   # GET /links.json
   def index
-    @links = Link.all
+    @links = Link.all.order(:created_at)
   end
 
   # GET /links/1
