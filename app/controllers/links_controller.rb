@@ -10,6 +10,8 @@ class LinksController < ApplicationController
   # GET /links/1
   # GET /links/1.json
   def show
+    @link.update(quantity_visit: @link.quantity_visit + 1) # ! count visits
+    redirect_to @link.full_name # ! go to origin link
   end
 
   # GET /links/new
@@ -25,7 +27,8 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(link_params)
-
+    @link.short_name = SecureRandom.alphanumeric(6) # ! generete new short link
+    @link.password = SecureRandom.hex(2) # ! generete password
     respond_to do |format|
       if @link.save
         format.html { redirect_to @link, notice: 'Link was successfully created.' }
@@ -62,13 +65,12 @@ class LinksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_link
       @link = Link.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def link_params
-      params.require(:link).permit(:full_name, :short_name, :quantity_visit, :password)
+      params.require(:link).permit(:full_name)
     end
 end
