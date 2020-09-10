@@ -17,7 +17,7 @@
     <% @links.each do |link| %>
       <tr>
         <td><%= link.full_name %></td>
-        <td><%= link.short_name %></td>
+        <td><%= link_to "#{link.short_name}", link %></td>
         <td><%= link.quantity_visit %></td>
         <td><%= link.password %></td>
         <td><%= link_to 'Show', link %></td>

@@ -27,11 +27,11 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(link_params)
-    @link.short_name = SecureRandom.alphanumeric(6) # ! generete new short link
-    @link.password = SecureRandom.hex(2) # ! generete password
+    @link.generete_short_name # ! generete new short link
+    @link.generete_password # ! generete password
     respond_to do |format|
       if @link.save
-        format.html { redirect_to @link, notice: 'Link was successfully created.' }
+        format.html { redirect_to :root, notice: 'Link was successfully created.' }
         format.json { render :show, status: :created, location: @link }
       else
         format.html { render :new }
