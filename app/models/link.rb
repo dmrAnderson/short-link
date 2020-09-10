@@ -1,4 +1,17 @@
 class Link < ApplicationRecord
+  validates :full_name,
+            presence: true,
+            length: { maximum: 250 },
+            format: URI::regexp(%w[http https])
+
+  validates :short_name,
+            presence: true,
+            uniqueness: true,
+            length: { is: 5 }
+
+  validates :password,
+            presence: true,
+            length: { is: 4 }
 
   def generete_short_name
     new_short_name = SecureRandom.alphanumeric(5)
