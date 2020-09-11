@@ -1,3 +1,187 @@
-// Place all the styles related to the Links controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+// Start variables
+$base-color: #ccc;
+$bg-text-color: #ededed;
+// End variables
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+// Start background
+.background {
+  width: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  user-select: none;
+}
+
+.background__container {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.background__title_shadow,
+.background__subtitle_shadow {
+  color: #fff;
+  text-shadow:
+    -0.0075em 0.0075em 0 $bg-text-color,
+    0.005em   0.005em  0 $bg-text-color,
+    0.01em    0.01em   0 $bg-text-color,
+    0.015em   0.015em    $bg-text-color,
+    0.02em    0.02em   0 $bg-text-color,
+    0.025em   0.025em  0 $bg-text-color,
+    0.03em    0.03em   0 $bg-text-color,
+    0.035em   0.035em  0 $bg-text-color;
+ }
+
+.background__title {
+  text-transform: uppercase;
+  font-size: 200px ;
+  font-weight: 900;
+  opacity: .2;
+}
+.background__subtitle {
+  text-align: end;
+  font-size: 50px;
+  opacity: .5;
+}
+// End background
+
+// Start cards
+.cards {
+  width: 75%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  margin: 350px auto 0 auto;
+}
+// End cards
+
+// Start card
+.card {
+  position: relative;
+  width: 400px;
+  height: 150px;
+
+  margin-bottom: 50px;
+
+  font-size: 20px;
+
+  &::before {
+    content: '';
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    border: 2px solid #f2f2f2;
+  }
+}
+
+.card__header {margin-bottom: 15px;}
+
+.card__time {margin-right: 10px;}
+
+.card__views {
+  position: relative;
+  padding-left: 25px;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+
+    position: absolute;
+    top: 7px;
+    left: 0;
+
+    background-color: #bbb;
+    border-radius: 50%;
+  }
+}
+
+.card__body {margin-bottom: 15px;}
+
+.card__short-link {
+  font-size: 30px;
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+.card__full-link {
+  font-size: 15px;
+  margin-top: 15px;
+}
+
+.card__footer {
+  text-align: end;
+  color: $base-color;
+}
+// End card
+
+// Start pagination
+.container {
+  width: 50%;
+  margin: auto auto 50px auto;
+  padding: 20px 0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid $base-color;
+  border-bottom: 1px solid $base-color;
+}
+
+.previous_page,
+.next_page {
+  display: block;
+  width: 50%;
+
+  padding: 20px;
+
+  text-align: center;
+  font-size: 25px;
+  line-height: 50px;
+}
+
+.previous_page {border-right: .5px solid $base-color;}
+.newx_page {border-left: .5px solid $base-color;}
+
+.disabled {color: $base-color;}
+
+a {
+  color: black;
+  text-decoration: none;
+  &:hover {text-decoration: underline;}
+}
+// End pagination
+
+.delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #ccc;
+  text-decoration: none;
+  &:hover {color: #000;}
+}

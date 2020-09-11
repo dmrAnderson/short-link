@@ -1,35 +1,31 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Links</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Full name</th>
-      <th>Short name</th>
-      <th>Quantity visit</th>
-      <th>Password</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="page">
+  <p id="notice"><%= notice %></p>
+  <section class="background">
+    <div class="background__container">
+      <h1 class="background__title background__title_shadow">short-links</h1>
+      <div class="background__subtitle background__subtitle_shadow">My test-task for Web-sistems</div>
+    </div>
+  </section>
+  <section class="cards">
     <% @links.each do |link| %>
-      <tr>
-        <td><%= link.full_name %></td>
-        <td><%= link_to "#{link.short_name}", link %></td>
-        <td><%= link.quantity_visit %></td>
-        <td><%= link.password %></td>
-        <td><%= link_to 'Show', link %></td>
-        <td><%= link_to 'Edit', edit_link_path(link) %></td>
-        <td><%= link_to 'Destroy', link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <article class="card">
+      <div class="card__header">
+        <time class="card__time"><%= link.created_at.to_formatted_s(:long_ordinal) %></time>
+        <span class="card__views"><%= link.quantity_visit %> views</span>
+        <%= link_to '×', link, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete" %>
+      </div>
+      <div class="card__body">
+        <div class="card__short-link"><%= link_to "#{link.short_name}", link %></div>
+        <div class="card__full-link"><%= link.full_name %></div>
+      </div>
+      <div class="card__footer">
+        Last visited <%= time_ago_in_words(link.updated_at) %> ago.
+      </div>
+    </article>
     <% end %>
-  </tbody>
-</table>
-
-<%= will_paginate @links %>
-
-<br>
-
-<%= link_to 'New Link', new_link_path %>
+  </section>
+  <section class="container">
+    <%= will_paginate @links, page_links: false %>
+  </section>
+  <%= link_to  "new", new_link_path %>
+</div>
