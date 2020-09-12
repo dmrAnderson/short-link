@@ -1,0 +1,19 @@
+<article class="card">
+  <div class="card__header">
+    <time class="card__time">
+      <%= link.created_at.to_formatted_s(:long_ordinal) %>
+    </time>
+    <span class="card__views"><%= link.quantity_visit %> views</span>
+    <%= link_to '×', link, method: :delete, class: "delete",
+                           data: { confirm: 'Are you sure?' } %>
+  </div>
+  <div class="card__body">
+    <div class="card__short-link <%= 'card__short-link_useless' if useless_link?(link) %>">
+      <%= link_to link.short_name, link, target: "_blank" %>
+    </div>
+    <div class="card__full-link"><%= link.full_name %></div>
+  </div>
+  <div class="card__footer">
+    Last visited <%= time_ago_in_words(link.updated_at) %> ago.
+  </div>
+</article>

@@ -8,7 +8,7 @@
   <main class="content">
     <section class="search">
       <div class="search__container">
-        <%= form_tag(links_path, method: 'get', html: {class: "search__form"}) do %>
+        <%= form_tag(links_path, method: 'get') do %>
         <%= text_field_tag :short_name, nil, placeholder: "Short link..",
                                         required: true, pattern: "[a-zA-Z0-9]{5}",
                                         maxlength: "5", class: "search__input" %>
@@ -18,22 +18,7 @@
     </section>
     <section class="cards">
       <div class="cards__container">
-        <% @links.each do |link| %>
-        <article class="card">
-          <div class="card__header">
-            <time class="card__time"><%= link.created_at.to_formatted_s(:long_ordinal) %></time>
-            <span class="card__views"><%= link.quantity_visit %> views</span>
-            <%= link_to '×', link, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete" %>
-          </div>
-          <div class="card__body">
-            <div class="card__short-link"><%= link_to link.short_name, link, target: "_blank" %></div>
-            <div class="card__full-link"><%= link.full_name %></div>
-          </div>
-          <div class="card__footer">
-            Last visited <%= time_ago_in_words(link.updated_at) %> ago.
-          </div>
-        </article>
-        <% end %>
+        <%= render @links %>
       </div>
     </section>
     <% if @links.count > 1 %>
