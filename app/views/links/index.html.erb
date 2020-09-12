@@ -6,6 +6,12 @@
       <div class="background__subtitle background__subtitle_shadow">My test-task for Web-sistems</div>
     </div>
   </section>
+
+<%= form_tag(links_path, method: 'get') do %>
+  <%= text_field_tag :short_name, nil, placeholder: "Search.." %>
+  <%= submit_tag "Search" %>
+<% end %>
+
   <section class="cards">
     <% @links.each do |link| %>
     <article class="card">
@@ -15,7 +21,7 @@
         <%= link_to '×', link, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete" %>
       </div>
       <div class="card__body">
-        <div class="card__short-link"><%= link_to "#{link.short_name}", link %></div>
+        <div class="card__short-link"><%= link_to link.short_name, link %></div>
         <div class="card__full-link"><%= link.full_name %></div>
       </div>
       <div class="card__footer">
@@ -24,8 +30,10 @@
     </article>
     <% end %>
   </section>
-  <section class="container">
-    <%= will_paginate @links, page_links: false %>
-  </section>
+  <% if @links.count > 1 %>
+    <section class="container">
+      <%= will_paginate @links, page_links: false %>
+    </section>
+  <% end %>
   <%= link_to  "new", new_link_path %>
 </div>

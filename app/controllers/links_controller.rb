@@ -5,14 +5,21 @@ class LinksController < ApplicationController
   # GET /links
   # GET /links.json
   def index
-    @links = Link.all.paginate(page: params[:page], per_page: 6).order(:created_at)
+    links = Link.all.paginate(page: params[:page], per_page: 6)
+    @links =
+      if !params[:commit].equal?("Search")
+        search_link = Link.where(short_name: params[:short_name])
+        search_link.present? ? search_link : links
+      else
+        links
+      end
   end
 
   # GET /links/1
   # GET /links/1.json
   def show
-    @link.update(quantity_visit: @link.quantity_visit + 1) # ! count visits
-    redirect_to @link.full_name # ! go to origin link
+    @link.update(quantity_visit: @link.quantity_visit + 1)
+    redirect_to @link.full_name
   end
 
   # GET /links/new
@@ -28,8 +35,8 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(link_params)
-    @link.generete_short_name # ! generete new short link
-    @link.generete_password # ! generete password
+    @link.generete_short_name
+    @link.generete_password
     respond_to do |format|
       if @link.save
         format.html { redirect_to :root, notice: 'Link was successfully created.' }

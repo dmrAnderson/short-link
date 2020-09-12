@@ -120,7 +120,7 @@ $bg-text-color: #ededed;
 .card__short-link {
   font-size: 30px;
   font-weight: 900;
-  text-decoration: underline;
+  & > a:hover {text-decoration: underline;}
 }
 
 .card__full-link {
