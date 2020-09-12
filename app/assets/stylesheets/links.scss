@@ -14,19 +14,11 @@ $bg-text-color: #ededed;
   display: flex;
   flex-direction: column;
 
-  overflow: hidden;
+  font-family: "Montserrat", sans-serif;
 }
 
 // Start background
-.background {
-  width: 100%;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  user-select: none;
-}
+.background {user-select: none;}
 
 .background__container {
   width: 75%;
@@ -60,14 +52,63 @@ $bg-text-color: #ededed;
 }
 // End background
 
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 1 auto;
+}
+
+// Start search
+.search__container {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search__form {}
+
+.search__input {
+  width: 140px;
+  position: relative;
+
+  padding: 10px 25px;
+
+  border: 1px solid $bg-text-color;
+  border-radius: 4px;
+  outline-color: $bg-text-color;
+
+  font-size: 16px;
+  font-weight: 100;
+  letter-spacing: 1px;
+  font-family: inherit;
+
+  &:focus {background: $bg-text-color;}
+  &:hover {border-color: $base-color;}
+}
+.search__btn {
+  padding: 11.5px;
+
+  background: white;
+  border: 1px solid $base-color;
+  border-radius: 4px;
+  font-family: inherit;
+
+  &:focus {outline-color: $base-color;}
+  &:hover {background: $bg-text-color;}
+}
+// End search
+
 // Start cards
-.cards {
+.cards {flex: 1 1 auto;}
+
+.cards__container {
   width: 75%;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
 
-  margin: 350px auto 0 auto;
+  margin: 0 auto;
 }
 // End cards
 
@@ -77,7 +118,7 @@ $bg-text-color: #ededed;
   width: 400px;
   height: 150px;
 
-  margin-bottom: 50px;
+  margin: 25px 0;
 
   font-size: 20px;
 
@@ -120,6 +161,8 @@ $bg-text-color: #ededed;
 .card__short-link {
   font-size: 30px;
   font-weight: 900;
+  letter-spacing: 1px;
+
   & > a:hover {text-decoration: underline;}
 }
 
@@ -135,10 +178,9 @@ $bg-text-color: #ededed;
 // End card
 
 // Start pagination
-.container {
+.container__container {
   width: 50%;
-  margin: auto auto 50px auto;
-  padding: 20px 0;
+  margin: 40px auto;
 }
 
 .pagination {

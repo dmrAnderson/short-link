@@ -1,40 +1,47 @@
 <div class="page">
-  <p id="notice"><%= notice %></p>
   <section class="background">
     <div class="background__container">
       <h1 class="background__title background__title_shadow">short-links</h1>
       <div class="background__subtitle background__subtitle_shadow">My test-task for Web-sistems</div>
     </div>
   </section>
-
-<%= form_tag(links_path, method: 'get') do %>
-  <%= text_field_tag :short_name, nil, placeholder: "Search..", required: true,
-                                       pattern: "[A-Za-z]{5}", maxlength: "5" %>
-  <%= submit_tag "Search" %>
-<% end %>
-
-  <section class="cards">
-    <% @links.each do |link| %>
-    <article class="card">
-      <div class="card__header">
-        <time class="card__time"><%= link.created_at.to_formatted_s(:long_ordinal) %></time>
-        <span class="card__views"><%= link.quantity_visit %> views</span>
-        <%= link_to '×', link, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete" %>
+  <main class="content">
+    <section class="search">
+      <div class="search__container">
+        <%= form_tag(links_path, method: 'get', html: {class: "search__form"}) do %>
+        <%= text_field_tag :short_name, nil, placeholder: "Short link..",
+                                        required: true, pattern: "[a-zA-Z0-9]{5}",
+                                        maxlength: "5", class: "search__input" %>
+        <%= submit_tag "Search", class: "search__btn" %>
+        <% end %>
       </div>
-      <div class="card__body">
-        <div class="card__short-link"><%= link_to link.short_name, link %></div>
-        <div class="card__full-link"><%= link.full_name %></div>
-      </div>
-      <div class="card__footer">
-        Last visited <%= time_ago_in_words(link.updated_at) %> ago.
-      </div>
-    </article>
-    <% end %>
-  </section>
-  <% if @links.count > 1 %>
-    <section class="container">
-      <%= will_paginate @links, page_links: false %>
     </section>
-  <% end %>
-  <%= link_to  "new", new_link_path %>
+    <section class="cards">
+      <div class="cards__container">
+        <% @links.each do |link| %>
+        <article class="card">
+          <div class="card__header">
+            <time class="card__time"><%= link.created_at.to_formatted_s(:long_ordinal) %></time>
+            <span class="card__views"><%= link.quantity_visit %> views</span>
+            <%= link_to '×', link, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete" %>
+          </div>
+          <div class="card__body">
+            <div class="card__short-link"><%= link_to link.short_name, link, target: "_blank" %></div>
+            <div class="card__full-link"><%= link.full_name %></div>
+          </div>
+          <div class="card__footer">
+            Last visited <%= time_ago_in_words(link.updated_at) %> ago.
+          </div>
+        </article>
+        <% end %>
+      </div>
+    </section>
+    <% if @links.count > 1 %>
+    <section class="paginate">
+      <div class="container__container">
+        <%= will_paginate @links, page_links: false %>
+      </div>
+    </section>
+    <% end %>
+  </main>
 </div>
