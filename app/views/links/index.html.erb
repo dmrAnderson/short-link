@@ -8,7 +8,8 @@
   </section>
 
 <%= form_tag(links_path, method: 'get') do %>
-  <%= text_field_tag :short_name, nil, placeholder: "Search.." %>
+  <%= text_field_tag :short_name, nil, placeholder: "Search..", required: true,
+                                       pattern: "[A-Za-z]{5}", maxlength: "5" %>
   <%= submit_tag "Search" %>
 <% end %>
 
