@@ -13,11 +13,15 @@ class Link < ApplicationRecord
             presence: true,
             length: { is: 4 }
 
-  default_scope -> { order(:created_at) }
+  def to_param
+    short_name
+  end
+
+  default_scope -> { order(created_at: :desc) }
 
   def generete_short_name
     new_short_name = SecureRandom.alphanumeric(5)
-    if Link.find_by_short_name(new_short_name)
+    if Link.find_by(short_name: new_short_name)
       generete_short_name
     else
       self.short_name = new_short_name

@@ -175,8 +175,11 @@ $bg-text-color: #ededed;
 }
 
 .card__full-link {
-  margin-top: 15px;
-  font-size: 15px;
+  margin-top: 10px;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .card__footer {
