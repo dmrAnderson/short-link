@@ -14,13 +14,13 @@ class Api::V1::LinksController < ApplicationController
   end
 
   def create
-    link = Link.new(link_params)
-    link.generete_short_name
-    link.generete_password
-    if link.save
+    @link = Link.new(link_params)
+    @link.generete_short_name
+    @link.generete_password
+    if @link.save
       render json: {
         status: "SUCCESS", message: "Saved link",
-        data: link.as_json(only: %i[full_name short_name password])
+        data: @link.as_json(only: %i[full_name short_name password])
       }, status: :created
     else
       render json: { status: "ERROR", message: "Link not saved" },
@@ -51,6 +51,6 @@ class Api::V1::LinksController < ApplicationController
     end
 
     def link_params
-      params.permit(:full_name)
+      params.require(:link).permit(:full_name)
     end
 end
