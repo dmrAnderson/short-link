@@ -1,5 +1,6 @@
 class Api::V1::LinksController < ApplicationController
   before_action :set_link, except: :create
+  protect_from_forgery with: :null_session
 
   def show
     if @link.password.eql?(params[:password])
@@ -15,15 +16,15 @@ class Api::V1::LinksController < ApplicationController
 
   def create
     @link = Link.new(link_params)
-    if @link.save
+    if @link.save
       render json: {
         status: "SUCCESS", message: "Saved link",
         data: @link.as_json(only: %i[full_name short_name password])
       }, status: :created
-    else
+    else
       render json: { status: "ERROR", message: "Link not saved" },
                    status: :unprocessable_entity
-    end
+    end
   end
 
   def destroy
