@@ -26,6 +26,10 @@ class LinksController < ApplicationController
   private
 
     def set_link
-      @link = Link.find_by(short_name: params[:short_name])
+      if !(@link = Link.find_by(short_name: params[:short_name])).nil?
+        @link
+      else
+        redirect_to :root
+      end
     end
 end
