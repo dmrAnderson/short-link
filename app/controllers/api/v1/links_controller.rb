@@ -15,8 +15,6 @@ class Api::V1::LinksController < ApplicationController
 
   def create
     @link = Link.new(link_params)
-    @link.generete_short_name
-    @link.generete_password
     if @link.save
       render json: {
         status: "SUCCESS", message: "Saved link",
