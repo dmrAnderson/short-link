@@ -18,7 +18,13 @@
     </section>
     <section class="cards">
       <div class="cards__container">
-        <%= render @links %>
+        <% if @links.any? %>
+          <%= render @links %>
+        <% else %>
+          <p class="cards__empty">
+            Unfortunately, now we haven't one link, but soon they'll appear
+          <p>
+        <% end %>
       </div>
     </section>
     <% if @links.count > 1 %>
