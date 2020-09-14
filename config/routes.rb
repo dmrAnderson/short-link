@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :links, only: %i[create show destroy], param: :short_name
+      resources :links, except: %i[index new edit], param: :short_name
     end
   end
 

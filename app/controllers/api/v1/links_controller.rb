@@ -5,36 +5,39 @@ class Api::V1::LinksController < ApplicationController
   def show
     if @link.password.eql?(params[:password])
       @link.update(quantity_visit: @link.quantity_visit + 1)
-      render json: { status: "SUCCESS",
-                    message: "Loaded link",
-                    full_link: @link.full_name }, status: :ok
+      render :show, status: :ok
     else
-      render json: { status: "ERROR", message: "Incorrect password" },
-                   status: :unprocessable_entity
+      render json: { msg: "Incorrect password" }, status: :forbidden
     end
   end
 
   def create
     @link = Link.new(link_params)
     if @link.save
-      render json: {
-        status: "SUCCESS", message: "Saved link",
-        data: @link.as_json(only: %i[full_name short_name password])
-      }, status: :created
+      render :show, status: :created
     else
-      render json: { status: "ERROR", message: "Link not saved" },
-                   status: :unprocessable_entity
+      render json: { msg: "Invalid format" }, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @link.password.eql?(params[:password])
+      if @link.update(link_params)
+        render :show, status: :ok
+      else
+        render json: { msg: "Invalid format" }, status: :unprocessable_entity
+      end
+    else
+      render json: { msg: "Incorrect password" }, status: :forbidden
     end
   end
 
   def destroy
     if @link.password.eql?(params[:password])
       @link.destroy
-      render json: { status: "SUCCESS", message: "Deleted link" },
-                   status: :ok
+      render json: { msg: "Link deleted" }, status: :ok
     else
-      render json: { status: "ERROR", message: "Incorrect password" },
-                   status: :unprocessable_entity
+      render json: { msg: "Incorrect password" }, status: :forbidden
     end
   end
 
@@ -50,6 +53,6 @@ class Api::V1::LinksController < ApplicationController
     end
 
     def link_params
-      params.require(:link).permit(:full_name)
+      params.permit(:full_name)
     end
 end
