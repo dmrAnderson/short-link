@@ -1,14 +1,11 @@
 class Api::V1::LinksController < ApplicationController
   before_action :set_link, except: :create
+  before_action :check_password, except: :create
   protect_from_forgery with: :null_session
 
   def show
-    if @link.password.eql?(params[:password])
-      @link.update(quantity_visit: @link.quantity_visit + 1)
-      render :show, status: :ok
-    else
-      render json: { msg: "Incorrect password" }, status: :forbidden
-    end
+    @link.update(quantity_visit: @link.quantity_visit + 1)
+    render :show, status: :ok
   end
 
   def create
@@ -21,24 +18,16 @@ class Api::V1::LinksController < ApplicationController
   end
 
   def update
-    if @link.password.eql?(params[:password])
-      if @link.update(link_params)
-        render :show, status: :ok
-      else
-        render json: { msg: "Invalid format" }, status: :unprocessable_entity
-      end
+    if @link.update(link_params)
+      render :show, status: :ok
     else
-      render json: { msg: "Incorrect password" }, status: :forbidden
+      render json: { msg: "Invalid format" }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if @link.password.eql?(params[:password])
-      @link.destroy
-      render json: { msg: "Link deleted" }, status: :ok
-    else
-      render json: { msg: "Incorrect password" }, status: :forbidden
-    end
+    @link.destroy
+    render json: { msg: "Link deleted" }, status: :ok
   end
 
   private
@@ -49,6 +38,13 @@ class Api::V1::LinksController < ApplicationController
       else
         render json: { status: "ERROR", message: "Not found" },
                      status: :not_found
+      end
+    end
+
+    def check_password
+      unless @link.password.eql?(params[:password])
+        render json: { msg: "Incorrect password" },
+                     status: :forbidden and return
       end
     end
 
