@@ -4,7 +4,7 @@
       <%= link.created_at.to_formatted_s(:long_ordinal) %>
     </time>
     <span class="card__views"><%= link.quantity_visit %> views</span>
-    <%= link_to '×', link, method: :delete, class: "delete",
+    <%= link_to '×', link, method: :delete, class: "card__delete",
                            data: { confirm: 'Are you sure?' } %>
   </div>
   <div class="card__body">

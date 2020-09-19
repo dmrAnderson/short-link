@@ -25,9 +25,9 @@ $bg-text-color: #ededed;
   user-select: none;
 }
 
-.background__title_shadow,
+.background__title_shadow > a,
 .background__subtitle_shadow {
-  color: #fff;
+  color: white;
   text-shadow:
     -0.0075em 0.0075em 0 $bg-text-color,
     0.005em   0.005em  0 $bg-text-color,
@@ -39,38 +39,18 @@ $bg-text-color: #ededed;
     0.035em   0.035em  0 $bg-text-color;
  }
 
-.background__title {
+.background__title > a {
   text-transform: uppercase;
   font-size: 200px ;
   font-weight: bold;
-  opacity: .2;
-}
-
-.background__info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.background__home > a {
-  padding: 8.5px 40px;
-
-  border: 1px solid $bg-text-color;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 35px;
-  color: $base-color;
-
-  &:hover {
-    text-decoration: none;
-    color: $bg-text-color;
-  }
-  &:focus {border-color: $base-color}
+  opacity: .3;
+  &:hover {text-decoration: none;}
 }
 
 .background__subtitle {
+  text-align: end;
   font-size: 50px;
-  opacity: .5;
+  opacity: .6;
 }
 // End background
 
@@ -184,6 +164,20 @@ $bg-text-color: #ededed;
   }
 }
 
+.card__delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: $base-color;
+  text-decoration: none;
+  &:hover {color: #000;}
+}
+
 .card__body {margin-bottom: 15px;}
 
 .card__short-link {
@@ -217,7 +211,7 @@ $bg-text-color: #ededed;
 // End card
 
 // Start pagination
-.container__container {
+.paginate__container {
   width: 50%;
   margin: 40px auto;
 }
@@ -225,6 +219,7 @@ $bg-text-color: #ededed;
 .pagination {
   display: flex;
   justify-content: center;
+
   border-top: 1px solid $base-color;
   border-bottom: 1px solid $base-color;
 }
@@ -252,17 +247,3 @@ a {
   &:hover {text-decoration: underline;}
 }
 // End pagination
-
-.delete {
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: #ccc;
-  text-decoration: none;
-  &:hover {color: #000;}
-}

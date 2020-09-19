@@ -1,14 +1,11 @@
 <div class="page">
   <section class="background">
     <div class="background__container">
-      <h1 class="background__title background__title_shadow">short-links</h1>
-      <div class="background__info">
-        <nav class="background__home"><%= link_to  "home", :root %></nav>
-        <div class="background__subtitle background__subtitle_shadow">My test-task for Web-systems</div>
-      </div>
+      <h1 class="background__title background__title_shadow"><%= link_to  "short-links", :root %></h1>
+      <div class="background__subtitle background__subtitle_shadow">My test-task for Web-systems</div>
     </div>
   </section>
-  <main class="content">
+  <main class="content _anim-items _anim-no-hide">
     <section class="search">
       <div class="search__container">
         <%= form_tag(links_path, method: 'get') do %>
@@ -24,15 +21,13 @@
         <% if @links.any? %>
           <%= render @links %>
         <% else %>
-          <div class="cards__empty">
-            Unfortunately, now we haven't one link, but soon they'll appear
-          <div>
+          <div class="cards__empty">Unfortunately, now we haven't one link, but soon they'll appear<div>
         <% end %>
       </div>
     </section>
     <% if @links.count > 1 %>
     <section class="paginate">
-      <div class="container__container">
+      <div class="paginate__container">
         <%= will_paginate @links, page_links: false %>
       </div>
     </section>
