@@ -4,7 +4,7 @@ class Api::V1::LinksController < ApplicationController
   protect_from_forgery with: :null_session
 
   def show
-    @link.update(quantity_visit: @link.quantity_visit + 1)
+    visit_this(@link)
     render :show, status: :ok
   end
 

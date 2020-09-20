@@ -14,7 +14,7 @@ class LinksController < ApplicationController
   end
 
   def show
-    @link.update(quantity_visit: @link.quantity_visit + 1)
+    visit_this(@link)
     redirect_to @link.full_name
   end
 
